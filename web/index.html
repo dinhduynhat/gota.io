@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="A free to play web browser based game where users play as a cell and eat others">
+<meta name="keywords" content="gota, gotaio, blob, cell, fun, entertainment, entertaining, virus">
+<meta name="robots" content="index, follow">
+<meta name="author" content="GotaIO">
+<script src="/cdn-cgi/apps/head/yMK8zjF1XEvp95Mj58ArIbBS40A.js"></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:1499639901,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"f639b84a3ceac43df24fe673c7747842",petok:"97d0a2311b11e4e6d03c83a2ad53da299977a37e-1499924355-1800",zone:"gota.io",rocket:"0",apps:{"abetterbrowser":{"ie":"6","opera":null,"chrome":null,"safari":null,"firefox":null}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=85b614c0f6/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<link rel="icon" type="image/png" href="favicon.ico">
+<link rel="stylesheet" href="style.css?v=1.4.5"/>
+ 
+<link rel="stylesheet" href="jquery.mCustomScrollbar.css"/>
+<link rel="stylesheet" href="spectrum.css"/>
+<script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="jquery.mCustomScrollbar.min.js"></script>
+<script type="text/javascript" src="spectrum.js"></script>
+<script type="text/javascript" src="se-v2.js"></script>
+<script src="gota.js?v=1.4.5"></script>
+ 
+<script src="crypto.js"></script>
+<script src="adblockdetection.js"></script>
+ 
+<script type="text/javascript">
+        window.cookieconsent_options = {
+            "message": "This website uses cookies to ensure you get the best experience on our website",
+            "dismiss": "Got it!",
+            "learnMore": "More info",
+            "link": null,
+            "theme": "light-bottom"
+        };
+    </script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
+ 
+<script>
+        if (window.module) module = window.module;
+    </script>
+<title>Gota.io - Play!</title>
+<script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-11512090-13', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+<div id="leaderboard-panel" class="ui-pane interface-color hud-panel">
+<p class="lh" id="leaderboard-header">Leaderboard</p>
+<canvas id="leaderboard-canvas" width="10" height="10"></canvas>
+<div id="scrimmage-btn-leave" style="display: none;">
+<button id="btn-leave-match" class="gota-btn">Leave</button>
+</div>
+</div>
+<div id="score-panel" class="ui-pane interface-color hud-panel">
+ 
+<p class="stext pID">ID: <span id="playerId">0</span>
+</p>
+<p class="stext">Score: <span id="playerScore">0</span>
+</p>
+<p class="stext">FPS: <span id="playerFps">0</span>
+</p>
+<p class="stext">Ping: <span id="playerPing">0ms</span>
+</p>
+<p class="stext">Cells: <span id="playerCells">0/16</span>
+</p>
+</div>
+<div id="party-panel" class="ui-pane interface-color hud-panel" style="display: none;">
+<canvas id="party-canvas"></canvas>
+</div>
+<div id="chat-panel" class="ui-pane hud-panel">
+<div id="chat-container" class="interface-color">
+<table class="chat-table">
+<tbody id="chat-body">
+</tbody>
+</table>
+</div>
+<input id="chat-input" autocomplete="off">
+</div>
+<div id="minimap-panel" class="ui-pane interface-color hud-panel">
+<div class="coordinates">&nbsp</div>
+<canvas id="minimap-canvas" width="250" height="250"></canvas>
+</div>
+<div id="preroll"></div>
+<div id="main">
+<div id="main-left" class="main-panel">
+<div id="main-rb">
+<div id="inner-rb">
+<script>
+                    function adBlockDetected() {
+                        document.write("<img src='images/adblock.png' draggable='false'></img>");
+                    }
+
+                    if (typeof fuckAdBlock === 'undefined') {
+                        adBlockDetected();
+                    }
+                </script>
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+                    var googletag = googletag || {};
+                    googletag.cmd = googletag.cmd || [];
+                </script>
+<script>
+                    googletag.cmd.push(function () {
+                        googletag.defineSlot('/421469808/GOT_gota.io_336x280', [336, 280], 'div-gpt-ad-1479821124724-0').addService(googletag.pubads());
+                        googletag.pubads().enableSingleRequest();
+                        googletag.enableServices();
+                    });
+                </script>
+ 
+<div align="center">
+<div id='div-gpt-ad-1479821124724-0' style='height:280px; width:336px;'></div>
+</div>
+<script>
+                    googletag.cmd.push(function () {
+                        googletag.display('div-gpt-ad-1479821124724-0');
+                    });
+                </script>
+</div>
+</div>
+</div>
+<div id="main-content" class="main-panel">
+<div class="main-top">
+<div id="logo"></div>
+<span class="main-version">Client version: <script>document.write(version)</script></span>
+</div>
+<div class="divider top-divider"></div>
+<div class="main-input">
+<input type="text" id="name-box" maxlength="20" class="gota-input" placeholder="Name">
+<button id="btn-play" class="gota-btn">Play</button>
+<button id="btn-spec" class="gota-btn">Spectate</button>
+</div>
+<div class="divider" style="margin: 5px auto 10px;"></div>
+<div class="main-bottom">
+<div class="main-bottom-left">
+<button id="btn-servers" onclick="javascript:showSideMenu('main-servers');" class="gota-btn bottom-btn">
+Servers
+</button>
+<button id="btn-options" onclick="javascript:showSideMenu('main-options');" class="gota-btn bottom-btn">
+Options
+</button>
+<button id="btn-keybinds" onclick="javascript:showSideMenu('main-keybinds');" class="gota-btn bottom-btn">
+Keybinds
+</button>
+<button id="btn-themes" onclick="javascript:showSideMenu('main-themes');" class="gota-btn bottom-btn">
+Themes
+</button>
+<button id="btn-subpanel" onclick="javascript:showSideMenu('main-subpanel');" class="gota-btn bottom-btn">
+Sub Panel
+</button>
+<button id="btn-discord" onclick="window.open('https://gota.io/discord/', '_blank');" class="gota-btn bottom-btn">
+Discord
+</button>
+ 
+</div>
+<div class="main-bottom-right">
+<div class="main-bottom-stats interface-color">
+<span>Stats</span>
+<br>
+<div id="main-stats">
+</div>
+</div>
+</div>
+</div>
+<div class="divider" style="margin-bottom:10px;margin-top:-10px;"></div>
+<div class="main-bottom-links">
+<script src="https://apis.google.com/js/platform.js"></script>
+<div class="g-ytsubscribe" data-channelid="UCkjizHFZCcolEPoprLSqKUA" data-layout="default" data-theme="dark" data-count="default"></div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="Have you played this addictive game yet? Try today!" data-via="GotaIO">Tweet</a>
+<script>
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0],
+                        p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + '://platform.twitter.com/widgets.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'twitter-wjs');
+            </script>
+<iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fgota.io%2Fweb%2F&layout=button_count&mobile_iframe=true&width=89&height=20&appId" width="89" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+<div class="status-container">
+<a href="https://status.gota.io" target="_blank" class="current-status">
+<span class="color-dot"></span>
+<span class="color-description"></span>
+</a>
+</div>
+</div>
+</div>
+<div id="main-right">
+<div id="main-side" class="main-panel">
+<div id="main-servers" class="main-right-panel" style="display: block;">
+<div class="title-text">
+<span>Servers</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="server-container">
+<ul id="server-tab-container">
+<li region="eu" id="server-tab-eu" class="server-tab server-active" title="Europe">
+<span>Europe</span>
+</li>
+<li region="na" id="server-tab-na" class="server-tab" title="North America">
+<span>North America</span>
+</li>
+<li region="ap" id="server-tab-ap" class="server-tab" title="Asia Pacific">
+<span>Asia Pacific</span>
+</li>
+</ul>
+<div id="server-content">
+<div id="servers-eu" style="display: block;">
+<table class="server-table">
+<thead>
+<tr>
+<th class="server-table-name"><span>Name</span>
+</th>
+<th class="server-table-players"><span>Players</span>
+</th>
+<th class="server-table-mode"><span>Gamemode</span>
+</th>
+</tr>
+</thead>
+<tbody id="servers-body-eu"></tbody>
+</table>
+</div>
+<div id="servers-na" style="display: none;">
+<table class="server-table">
+<thead>
+<tr>
+<th class="server-table-name"><span>Name</span>
+</th>
+<th class="server-table-players"><span>Players</span>
+</th>
+<th class="server-table-mode"><span>Gamemode</span>
+</th>
+</tr>
+</thead>
+<tbody id="servers-body-na"></tbody>
+</table>
+</div>
+<div id="servers-ap" style="display: none;">
+<table class="server-table">
+<thead>
+<tr>
+<th class="server-table-name"><span>Name</span>
+</th>
+<th class="server-table-players"><span>Players</span>
+</th>
+<th class="server-table-mode"><span>Gamemode</span>
+</th>
+</tr>
+</thead>
+<tbody id="servers-body-ap"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="main-options" class="main-right-panel" style="display: none;">
+<div class="title-text">
+<span>Options</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="options-container">
+ 
+<p align="center"><b>Performance Options</b>
+</p>
+<input type="checkbox" class="checkbox-options" id="cDisableEffects"><span>Disable Effects</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cHideNames"><span>Hide Names</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cHideSkins"><span>Hide Skins</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cHideFood"><span>Hide Food</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cShowGrid"><span>Show Grid</span>
+<br>
+<p align="center"><b>Misc Options</b>
+</p>
+<input type="checkbox" class="checkbox-options" id="cAutoRespawn"><span>Auto Respawn</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cShowMass"><span>Show Mass</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cTransCells"><span>Transparent Cells</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cSilentLogin"><span>Silent Login</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cHideChat"><span>Hide Chat</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cTextOutlines"><span>Text Outlines</span><span style="color:#ff2020;"> (Refresh Required)</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cHideMinimap"><span>Hide Minimap</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cHideCoordinates"><span>Hide Coordinates</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cDisableAutoZoom"><span>Disable Auto Zoom</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cColoredPing"><span>Hide Colored Ping</span>
+<br>
+<input type="checkbox" class="checkbox-options" id="cAutoDecline"><span>Auto Decline Party Invites</span>
+<br>
+<p align="center"><b>Streamer Options</b>
+</p>
+<input type="checkbox" class="checkbox-options" id="cHideId"><span>Hide ID</span>
+<br>
+</div>
+</div>
+<div id="main-keybinds" class="main-right-panel" style="display: none;">
+<div class="title-text">
+<span>Keybinds</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="options-container">
+<div class="keybinds-table-container">
+<table class="keybinds-table">
+<tr>
+<td>Eject Mass</td>
+<td><button id="kEjectMass" class="keybinds-btn">W</button></td>
+</tr>
+<tr>
+<td>Split</td>
+<td><button id="kSplit" class="keybinds-btn">SPACE</button></td>
+</tr>
+<tr>
+<td>Toggle Spectate Mode</td>
+<td><button id="kToggleSpec" class="keybinds-btn"></button></td>
+</tr>
+<tr>
+<td>Double Split</td>
+<td><button id="kDoubleSplit" class="keybinds-btn"></button></td>
+</tr>
+<tr>
+<td>Quad Split</td>
+<td><button id="kQuadSplit" class="keybinds-btn"></button></td>
+</tr>
+</table>
+</div>
+<div style="text-align: center; height: 30px;">
+<button id="btn-keybinds-clear" class="gota-btn bottom-btn">Clear</button>
+</div>
+</div>
+</div>
+<div id="main-themes" class="main-right-panel" style="display: none;">
+<div class="title-text">
+<span>Themes</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="options-container">
+<p align="center"><b>Interface Options</b>
+</p>
+<input type="checkbox" class="checkbox-options" id="cUiEnabled"><span>Enable Custom Interface</span>
+<br>
+<input type="text" class="checkbox-options" id="cUiForegroundColor" value="#ffffff"><span>Interface Foreground Color</span>
+<br>
+<input type="text" class="checkbox-options" id="cUiBackgroundColor"><span>Interface Background Color</span>
+<br>
+<input type="text" class="checkbox-options" id="cGameBackground"><span>Game Background</span>
+<br>
+<input type="text" class="checkbox-options" id="cGridColor"><span>Grid Color</span>
+<br>
+</div>
+</div>
+<div id="main-subpanel" class="main-right-panel" style="display: none;">
+<div class="title-text">
+<span>Sub Panel</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="options-container">
+<span>Skin Name: </span>
+<input type="text" class="checkbox-options" id="spSkinName">
+<br>
+<br>
+<input type="text" class="checkbox-options" id="spNameColor" value="#ffffff">
+<span>Name Color</span>
+<br>
+<br>
+<input type="text" id="spChatColor"> <span>Chat Color</span>
+<br>
+<br>
+<input type="checkbox" class="checkbox-options" id="spLowerName"><span>Lower Name</span>
+<br>
+<br>
+<button id="btn-updateSP" class="gota-btn" style="float:right;">Update</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="main-scrimmage" class="ui-pane interface-color" style="display: none;">
+<div class="title-text">
+<span>Team Scrimmage</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="scrimmage-content">
+<div id="scrimmage-mode-chooser" class="scrimmage-mode">
+<span>Gamemode</span>
+<br>
+<select id="scrimmage-mode-select">
+</select>
+</div>
+<div id="scrimmage-mode-info" class="scrimmage-mode">
+</div>
+</div>
+<div style="text-align: center; height: 30px;">
+<button id="btn-queue" class="gota-btn bottom-btn">Queue</button>
+</div>
+</div>
+<div class="popup-container">
+<div id="popup-login" class="popup-panel" style="display:none;">
+<div class="title-text">
+<span>Login</span>
+</div>
+<div class="divider title-divider"></div>
+<div class="popup-login-content">
+<input type="text" class="login-input" id="id-box" placeholder="Id">
+<input type="password" class="login-input" id="pw-box" placeholder="Password" autocomplete="off">
+</div>
+<div class="popup-buttons">
+<button id="btn-login" class="gota-btn popup-btn">Login</button>
+<button id="btn-cancel" class="gota-btn popup-btn">Cancel</button>
+</div>
+</div>
+<div id="popup-party" class="popup-panel" style="display:none;">
+<div class="title-text">
+<span>Party Invite</span>
+</div>
+<div class="divider title-divider"></div>
+<div id="popup-party-text"></div>
+<div class="popup-buttons">
+<button id="btn-accept" class="gota-btn popup-btn">Accept</button>
+<button id="btn-decline" class="gota-btn popup-btn">Decline</button>
+</div>
+</div>
+</div>
+<div id="context-menu" style="display:none;" selected="0" party="-1">
+<ul class="context-list">
+<li id="context-name">
+</li>
+<li id="menu-invite" class="context-action">
+<span>Invite</span>
+</li>
+<li id="menu-promote" class="context-action">
+<span>Promote</span>
+</li>
+<li id="menu-whisper" class="context-action">
+<span>Whisper</span>
+</li>
+<li id="menu-kick" class="context-action">
+<span>Kick</span>
+</li>
+</ul>
+</div>
+</body>
+</html>
